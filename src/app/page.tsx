@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <main style={{ maxWidth: 720, margin: '40px auto', fontFamily: 'system-ui, Arial' }}>
-      <h1>Hei, Nils 👋</h1>
+      <h1>Hei, Nishit 👋</h1>
       <p>Dette er din første egen Next.js-side.</p>
 
       <div style={{ marginTop: 24, padding: 16, border: '1px solid #eee', borderRadius: 12 }}>
