@@ -1,12 +1,12 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 
 export default function Home() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [inviteCode] = useState('YOURCODE'); // This would be generated dynamically in a real app
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Here you would typically make an API call to submit the email
     console.log('Email submitted:', email);
