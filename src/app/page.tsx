@@ -1,41 +1,71 @@
 'use client';
-import { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 
 export default function Home() {
-  const [count, setCount] = useState(0);
-  const [ping, setPing] = useState<string | null>(null);
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [inviteCode] = useState('TALKLET'); // This would be generated dynamically in a real app
 
-  async function hentPing() {
-    const res = await fetch('/api/ping');
-    const data = await res.json();
-    setPing(`${data.message} @ ${new Date(data.time).toLocaleTimeString()}`);
-  }
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    // Here you would typically make an API call to submit the email
+    console.log('Email submitted:', email);
+    setSubmitted(true);
+  };
 
   return (
-    <main style={{ maxWidth: 720, margin: '40px auto', fontFamily: 'system-ui, Arial' }}>
-      <h1>Hei, Nils 👋</h1>
-      <p>Dette er din første egen Next.js-side.</p>
+    <div className="talklet-container">
+      <header className="talklet-header">
+        <div className="talklet-logo">Talklet</div>
+      </header>
 
-      <div style={{ marginTop: 24, padding: 16, border: '1px solid #eee', borderRadius: 12 }}>
-        <p style={{ marginBottom: 8 }}>Demo-knapp:</p>
-        <button
-          onClick={() => setCount((x) => x + 1)}
-          style={{ padding: '10px 16px', borderRadius: 10, border: '1px solid #ddd', cursor: 'pointer' }}
-        >
-          Klikk meg ({count})
-        </button>
-      </div>
+      <main className="talklet-main">
+        <div className="talklet-hero">
+          <h1 className="talklet-headline">
+            Be the first to try a social experiment unlike anything before.
+          </h1>
+          <p className="talklet-subheadline">
+            Small, curated tables. 25-minute conversations with meaningful topics.
+          </p>
 
-      <div style={{ marginTop: 24, padding: 16, border: '1px solid #eee', borderRadius: 12 }}>
-        <p style={{ marginBottom: 8 }}>Kall server‑API:</p>
-        <button
-          onClick={hentPing}
-          style={{ padding: '10px 16px', borderRadius: 10, border: '1px solid #ddd', cursor: 'pointer' }}
-        >
-          Ping server
-        </button>
-        {ping && <p style={{ marginTop: 12 }}>Svar: {ping}</p>}
-      </div>
-    </main>
+          {!submitted ? (
+            <form className="talklet-form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <p className="helper-text">
+                  You will get a personal invite link after signup. Invite friends to move up the waitlist and secure your spot.
+                </p>
+              </div>
+              <button type="submit" className="cta-button">
+                Join the private beta
+              </button>
+            </form>
+          ) : (
+            <div className="success-message">
+              <p>Thanks! Check your inbox. Here is your link: 
+                <a href={`https://talklet.no/?ref=${inviteCode}`}>talklet.no/?ref={inviteCode}</a> 
+                — share it to skip the line.
+              </p>
+            </div>
+          )}
+
+          <div className="micro-badges">
+            <span>Private beta</span>
+            <span>Invite-only</span>
+            <span>Limited seats</span>
+          </div>
+        </div>
+      </main>
+
+      <footer className="talklet-footer">
+        <p>© Talklet 2025</p>
+      </footer>
+    </div>
   );
 }
