@@ -39,7 +39,7 @@ export default function Home() {
                   required
                 />
                 <p className="helper-text">
-                  You'll get a personal invite link after signup. Invite friends to move up the waitlist and secure your spot.
+                  You will get a personal invite link after signup. Invite friends to move up the waitlist and secure your spot.
                 </p>
               </div>
               <button type="submit" className="cta-button">
@@ -48,7 +48,7 @@ export default function Home() {
             </form>
           ) : (
             <div className="success-message">
-              <p>Thanks! Check your inbox. Here's your link: 
+              <p>Thanks! Check your inbox. Here is your link: 
                 <a href={`https://talklet.no/?ref=${inviteCode}`}>talklet.no/?ref={inviteCode}</a> 
                 — share it to skip the line.
               </p>
