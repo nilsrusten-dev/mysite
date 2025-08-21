@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import sgMail from '@sendgrid/mail';
 
 export async function POST(request: NextRequest) {
-  sgMail.setApiKey('');
+  sgMail.setApiKey('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');
 
   try {
     // Check if request body exists and is valid JSON
