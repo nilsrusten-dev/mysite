@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     const msg = {
       to: email,
       from: {
-        email: 'invites@talklet.no',
+        email: 'support@talklet.no',
         name: 'Talklet'
       },
       subject: 'Your Talklet Private Beta Invitation',
