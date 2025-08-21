@@ -23,7 +23,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 5%;
 }
 
 .talklet-hero {
@@ -65,6 +64,7 @@
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.2s ease;
+      width: 94%;
 }
 
 .talklet-form input:focus {

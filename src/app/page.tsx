@@ -1,22 +1,46 @@
-'use client';
+"use client"
 import React, { useState, FormEvent } from 'react';
 
 export default function Home() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [inviteCode] = useState('TALKLET'); // This would be generated dynamically in a real app
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [inviteCode, setInviteCode] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // Here you would typically make an API call to submit the email
-    console.log('Email submitted:', email);
-    setSubmitted(true);
+  const handleSubmit = async (e: FormEvent) => {
+   e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Something went wrong');
+      }
+
+      setInviteCode(data.inviteCode);
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit email');
+    } finally {
+      setIsLoading(false);
+    }
   };
-
+  
   return (
     <div className="talklet-container">
       <header className="talklet-header">
-        <div className="talklet-logo">Talklet</div>
+        <div className="talklet-logo"><img width={'100px'} src={'/logo.png'} /></div>
       </header>
 
       <main className="talklet-main">
@@ -37,13 +61,19 @@ export default function Home() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled={isLoading}
                 />
                 <p className="helper-text">
                   You will get a personal invite link after signup. Invite friends to move up the waitlist and secure your spot.
                 </p>
               </div>
-              <button type="submit" className="cta-button">
-                Join the private beta
+              {error && <div className="error-message">{error}</div>}
+              <button 
+                type="submit" 
+                className="cta-button"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Sending...' : 'Join the private beta'}
               </button>
             </form>
           ) : (
