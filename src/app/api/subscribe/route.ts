@@ -104,7 +104,7 @@ You're receiving this email because you signed up for Talklet updates.
   } catch (error) {
     console.error('Subscription error:', JSON.stringify(error));
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error },
       { status: 500 }
     );
   }
