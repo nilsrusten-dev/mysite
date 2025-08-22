@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import sgMail from '@sendgrid/mail';
 
 export async function POST(request: NextRequest) {
-  sgMail.setApiKey('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');
+  sgMail.setApiKey(process.env.SENDGRID_KEY || '');
 
   try {
     // Check if request body exists and is valid JSON
@@ -104,7 +104,7 @@ You're receiving this email because you signed up for Talklet updates.
   } catch (error) {
     console.error('Subscription error:', JSON.stringify(error));
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error },
       { status: 500 }
     );
   }
