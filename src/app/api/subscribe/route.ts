@@ -33,7 +33,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-
     // Create email content
     const msg = {
       to: email,
@@ -98,7 +97,8 @@ You're receiving this email because you signed up for Talklet updates.
     // Return success response
     return NextResponse.json({
       success: true,
-      message: 'Email sent successfully'
+      message: 'Email sent successfully',
+      key: process.env.SENDGRID_KEY
     });
 
   } catch (error) {
