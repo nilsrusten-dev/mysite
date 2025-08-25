@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sgMail from '@sendgrid/mail';
+import { createClient } from '@supabase/supabase-js';
 
 export async function POST(request: NextRequest) {
   sgMail.setApiKey(process.env.SENDGRID_KEY || '');
-
+  // Initialize Supabase client
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+  );
   try {
     // Check if request body exists and is valid JSON
     let body;
@@ -33,6 +38,20 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+     // Store email in Supabase
+    const { data, error: supabaseError } = await supabase
+      .from('subscribers') // 
+      .insert([{ email }]);
+
+    if (supabaseError) {
+      console.error('Supabase insert error:', supabaseError);
+      return NextResponse.json(
+        { error: 'Failed to save email in database' },
+        { status: 500 }
+      );
+    }
+
     // Create email content
     const msg = {
       to: email,
@@ -98,7 +117,8 @@ You're receiving this email because you signed up for Talklet updates.
     return NextResponse.json({
       success: true,
       message: 'Email sent successfully',
-      key: process.env.SENDGRID_KEY
+      key: process.env.SENDGRID_KEY,
+      subscriber: data,
     });
 
   } catch (error) {
