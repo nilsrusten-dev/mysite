@@ -40,17 +40,17 @@ export async function POST(request: NextRequest) {
     }
 
      // Store email in Supabase
-    // const { data, error: supabaseError } = await supabase
-    //   .from('subscribers') // 
-    //   .insert([{ email }]);
+    const { data, error: supabaseError } = await supabase
+      .from('subscribers') // 
+      .insert([{ email }]);
 
-    // if (supabaseError) {
-    //   console.error('Supabase insert error:', supabaseError);
-    //   return NextResponse.json(
-    //     { error: 'Failed to save email in database' },
-    //     { status: 500 }
-    //   );
-    // }
+    if (supabaseError) {
+      console.error('Supabase insert error:', supabaseError);
+      return NextResponse.json(
+        { error: 'Failed to save email in database' },
+        { status: 500 }
+      );
+    }
 
     // Create email content
     const msg = {
@@ -116,7 +116,7 @@ You're receiving this email because you signed up for Talklet updates.
     // Return success response
     return NextResponse.json({
       success: true,
-      message: 'Email sent successfully',
+      message: 'Email sent successfully'
     });
 
   } catch (error) {
