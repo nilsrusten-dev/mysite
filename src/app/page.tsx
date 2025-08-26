@@ -46,10 +46,10 @@ export default function Home() {
       <main className="talklet-main">
         <div className="talklet-hero">
           <h1 className="talklet-headline">
-            Be the first to try a social experiment unlike anything before.
+            A new way to talk online – small, curated tables. Real conversations.
           </h1>
           <p className="talklet-subheadline">
-            Small, curated tables. 25-minute conversations with meaningful topics.
+            Forget noisy calls. Talklet is built for real, small-group conversations – just 6 people, 35-60 minutes, meaningful topics.
           </p>
 
           {!submitted ? (
