@@ -57,6 +57,24 @@ Forget noisy calls and endless chatter. Talklet creates small, curated tables wh
     <p className="subheadline">
 Every session ends with a smart AI summary, so you can revisit key ideas without recordings or notes.          </p>
 
+          <div className="features-section">
+            <h2 className="features-title">Features</h2>
+            <div className="features-list">
+              <div className="feature-item">
+                <strong>Small, curated tables</strong> – Just 6 people, 35–60 minutes, one topic.
+              </div>
+              <div className="feature-item">
+                <strong>AI moderator</strong> – Ensures balance and flow in the conversation.
+              </div>
+              <div className="feature-item">
+                <strong>AI summaries</strong> – Automatic highlights after each talk.
+              </div>
+              <div className="feature-item">
+                <strong>Private and safe</strong> – No recordings, only live transcription for summaries.
+              </div>
+            </div>
+          </div>
+
           {/* YouTube Video Embed */}
           <div className="video-container">
             <div className="video-wrapper">
@@ -81,7 +99,8 @@ Every session ends with a smart AI summary, so you can revisit key ideas without
                   disabled={isLoading}
                 />
                 <p className="helper-text">
-                  You will get a personal invite link after signup. Invite friends to move up the waitlist and secure your spot.
+                  You’ll receive your personal invite link after signup.
+Invite friends to move up the waitlist and secure your spot for the first real AI-powered conversations online.
                 </p>
               </div>
               {error && <div className="error-message">{error}</div>}
@@ -175,6 +194,46 @@ Every session ends with a smart AI summary, so you can revisit key ideas without
           color: #555;
           line-height: 1.6;
           padding: 0 0.5rem;
+        }
+        
+        .features-section {
+          margin: 2.5rem auto;
+          padding: 0 0.5rem;
+          width: 100%;
+          max-width: 600px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .features-title {
+          font-size: 1.8rem;
+          font-weight: 700;
+          margin-bottom: 1.5rem;
+          color: #333;
+          text-align: center;
+        }
+        
+        .features-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1.2rem;
+        }
+        
+        .feature-item {
+          background-color: rgba(255, 255, 255, 0.8);
+          padding: 1.2rem;
+          border-radius: 10px;
+          border-left: 4px solid #4f46e5;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          font-size: 1rem;
+          line-height: 1.5;
+          color: #444;
+        }
+        
+        .feature-item strong {
+          color: #4f46e5;
+          font-weight: 600;
         }
         
         .video-container {
@@ -354,6 +413,10 @@ Every session ends with a smart AI summary, so you can revisit key ideas without
           
           .subheadline {
             font-size: 1.2rem;
+            padding: 0 1.5rem;
+          }
+          
+          .features-section {
             padding: 0 1.5rem;
           }
           
