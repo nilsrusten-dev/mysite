@@ -111,6 +111,15 @@ Every session ends with a smart AI summary, so you can revisit key ideas without
       </main>
 
       <footer className="footer">
+        <div className="support-section">
+          <button 
+            className="support-button"
+            onClick={() => window.location.href = 'mailto:support@talklet.com'}
+          >
+            Contact Support
+          </button>
+          <p className="support-text">Or contact us directly at: support@talklet.com</p>
+        </div>
         <p>© Talklet 2025</p>
       </footer>
 
@@ -296,6 +305,41 @@ Every session ends with a smart AI summary, so you can revisit key ideas without
           color: #666;
           padding: 1.5rem 0;
           text-align: center;
+        }
+        
+        .support-section {
+          margin-bottom: 2rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
+        
+        .support-button {
+          background-color: #10b981;
+          color: white;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 6px;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: background-color 0.2s, transform 0.1s;
+          box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+        }
+        
+        .support-button:hover {
+          background-color: #059669;
+        }
+        
+        .support-button:active {
+          transform: translateY(1px);
+        }
+        
+        .support-text {
+          font-size: 0.9rem;
+          color: #666;
+          margin: 0;
         }
         
         /* Tablet styles */
