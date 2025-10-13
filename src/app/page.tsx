@@ -48,11 +48,14 @@ export default function Home() {
       <main className="main">
         <div className="hero">
           <h1 className="headline">
-            A new way to talk online – small, curated tables. Real conversations.
+            Small tables. Real talk. AI that listens.
           </h1>
           <p className="subheadline">
-            Forget noisy calls. Talklet is built for real, small-group conversations – just 6 people, 35-60 minutes, meaningful topics.
-          </p>
+A new way to talk online – real conversations with AI presence.
+Forget noisy calls and endless chatter. Talklet creates small, curated tables where up to 6 people meet for meaningful discussions — guided by an AI that listens, balances the flow, and captures the essence of every conversation.
+    </p>
+    <p className="subheadline">
+Every session ends with a smart AI summary, so you can revisit key ideas without recordings or notes.          </p>
 
           {/* YouTube Video Embed */}
           <div className="video-container">
