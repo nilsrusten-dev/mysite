@@ -12,7 +12,6 @@ export default function Home() {
     e.preventDefault();
     setIsLoading(true);
     setError('');
-
     try {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
@@ -39,109 +38,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <header className="header">
-        <div className="logo">
-          <img width={'100px'} src={'/logo.png'} alt="Talklet Logo" />
-        </div>
-      </header>
-
-      <main className="main">
-        <div className="hero">
-          <h1 className="headline">
-            Small tables. Real talk. AI that listens.
-          </h1>
-          <p className="subheadline">
-A new way to talk online – real conversations with AI presence.
-Forget noisy calls and endless chatter. Talklet creates small, curated tables where up to 6 people meet for meaningful discussions — guided by an AI that listens, balances the flow, and captures the essence of every conversation.
-    </p>
-    <p className="subheadline">
-Every session ends with a smart AI summary, so you can revisit key ideas without recordings or notes.          </p>
-
-          <div className="features-section">
-            <h2 className="features-title">Features</h2>
-            <div className="features-list">
-              <div className="feature-item">
-                <strong>Small, curated tables</strong> – Just 6 people, 35–60 minutes, one topic.
-              </div>
-              <div className="feature-item">
-                <strong>AI moderator</strong> – Ensures balance and flow in the conversation.
-              </div>
-              <div className="feature-item">
-                <strong>AI summaries</strong> – Automatic highlights after each talk.
-              </div>
-              <div className="feature-item">
-                <strong>Private and safe</strong> – No recordings, only live transcription for summaries.
-              </div>
-            </div>
-          </div>
-
-          {/* YouTube Video Embed */}
-          <div className="video-container">
-            <div className="video-wrapper">
-              <iframe
-                src="https://www.youtube.com/embed/lbQViMBMsXM"
-                title="Talklet Introduction"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-
-          {!submitted ? (
-            <form className="form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  disabled={isLoading}
-                />
-                <p className="helper-text">
-                  You’ll receive your personal invite link after signup.
-Invite friends to move up the waitlist and secure your spot for the first real AI-powered conversations online.
-                </p>
-              </div>
-              {error && <div className="error-message">{error}</div>}
-              <button 
-                type="submit" 
-                className="cta-button"
-                disabled={isLoading}
-              >
-                {isLoading ? 'Sending...' : 'Join the private beta'}
-              </button>
-            </form>
-          ) : (
-            <div className="success-message">
-              <p>Thanks! Check your inbox. Here is your link: 
-                <a href={`https://talklet.no/?ref=${inviteCode}`}>talklet.no/?ref={inviteCode}</a> 
-                — share it to skip the line.
-              </p>
-            </div>
-          )}
-
-          <div className="micro-badges">
-            <span>Private beta</span>
-            <span>Invite-only</span>
-            <span>Limited seats</span>
-          </div>
-        </div>
-      </main>
-
-      <footer className="footer">
-        <div className="support-section">
-          <button 
-            className="support-button"
-            onClick={() => window.location.href = 'mailto:support@talklet.com'}
-          >
-            Contact Support
-          </button>
-          <p className="support-text">Or contact us directly at: support@talklet.com</p>
-        </div>
-        <p>© Talklet 2025</p>
-      </footer>
-
+      
       <style jsx>{`
         .container {
           min-height: 100vh;
