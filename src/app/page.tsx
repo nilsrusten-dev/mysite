@@ -27,8 +27,9 @@ export default function Home() {
       }
     };
     
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'conversion', {
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      const gtag = (window as { gtag: (...args: unknown[]) => void }).gtag;
+      gtag('event', 'conversion', {
         'send_to': 'AW-17648364616/BI1vCKmIhq0bEMjYst9B',
         'event_callback': callback
       });
