@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -8,6 +8,33 @@ export default function Home() {
   const [error, setError] = useState('');
   const [inviteCode, setInviteCode] = useState('');
   const [showCookieBanner, setShowCookieBanner] = useState(true);
+  const [cookiesAccepted, setCookiesAccepted] = useState(false);
+
+  // Check localStorage for cookie preference on component mount
+  useEffect(() => {
+    const cookiePreference = localStorage.getItem('cookiesAccepted');
+    if (cookiePreference !== null) {
+      setShowCookieBanner(false);
+      setCookiesAccepted(cookiePreference === 'true');
+    }
+  }, []);
+
+  // Google Ads conversion tracking function
+  const gtagReportConversion = (url?: string) => {
+    const callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location.href = url;
+      }
+    };
+    
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+        'send_to': 'AW-17648364616/BI1vCKmIhq0bEMjYst9B',
+        'event_callback': callback
+      });
+    }
+    return false;
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -31,6 +58,11 @@ export default function Home() {
 
       setInviteCode(data.inviteCode);
       setSubmitted(true);
+      
+      // Track conversion only if cookies are accepted
+      if (cookiesAccepted) {
+        gtagReportConversion();
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to submit email');
     } finally {
@@ -40,15 +72,37 @@ export default function Home() {
 
   const handleAcceptCookies = () => {
     setShowCookieBanner(false);
+    setCookiesAccepted(true);
     localStorage.setItem('cookiesAccepted', 'true');
   };
 
   const handleRejectCookies = () => {
     setShowCookieBanner(false);
+    setCookiesAccepted(false);
     localStorage.setItem('cookiesAccepted', 'false');
   };
 
   return (
+    <>
+      {/* Google Ads Script */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            function gtag_report_conversion(url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              gtag('event', 'conversion', {
+                  'send_to': 'AW-17648364616/BI1vCKmIhq0bEMjYst9B',
+                  'event_callback': callback
+              });
+              return false;
+            }
+          `
+        }}
+      />
     <div className="container">
       <header className="header">
         <div className="logo">
@@ -609,5 +663,6 @@ Invite friends to move up the waitlist and secure your spot for the first real A
         }
       `}</style>
     </div>
+    </>
   );
 }
