@@ -1,6 +1,8 @@
 
 "use client"
 
+import Link from "next/link";
+
 export default function PrivacyCookies() {
   return (
     <div className="container">
@@ -71,7 +73,7 @@ export default function PrivacyCookies() {
           <section className="section">
             <h2>5. Policy changes</h2>
             <p>
-              We may update this policy occasionally. Any changes will be posted with a new "Last updated" date. 
+              We may update this policy occasionally. Any changes will be posted with a new Last updated date. 
               Continued use implies acceptance of the updated terms.
             </p>
           </section>
@@ -84,7 +86,7 @@ export default function PrivacyCookies() {
           </section>
 
           <div className="back-link">
-            <a href="/">← Back to Home</a>
+            <Link href="/">← Back to Home</Link>
           </div>
         </div>
       </main>
