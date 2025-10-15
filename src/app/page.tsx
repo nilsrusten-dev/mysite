@@ -7,6 +7,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [inviteCode, setInviteCode] = useState('');
+  const [showCookieBanner, setShowCookieBanner] = useState(true);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -35,6 +36,16 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleAcceptCookies = () => {
+    setShowCookieBanner(false);
+    localStorage.setItem('cookiesAccepted', 'true');
+  };
+
+  const handleRejectCookies = () => {
+    setShowCookieBanner(false);
+    localStorage.setItem('cookiesAccepted', 'false');
   };
 
   return (
@@ -139,8 +150,41 @@ Invite friends to move up the waitlist and secure your spot for the first real A
           </button>
           <p className="support-text">Or contact us directly at: support@talklet.com</p>
         </div>
+        <div className="footer-links">
+          <a href="/privacy-cookies" className="footer-link">Privacy & Cookies</a>
+        </div>
         <p>© Talklet 2025</p>
       </footer>
+
+      {showCookieBanner && (
+        <div className="cookie-banner">
+          <div className="cookie-content">
+            <p className="cookie-text">
+              We use cookies to improve your experience and measure traffic.
+            </p>
+            <div className="cookie-actions">
+              <button 
+                className="cookie-btn cookie-accept"
+                onClick={handleAcceptCookies}
+              >
+                Accept
+              </button>
+              <button 
+                className="cookie-btn cookie-reject"
+                onClick={handleRejectCookies}
+              >
+                Reject
+              </button>
+              <a 
+                href="/privacy-cookies" 
+                className="cookie-link"
+              >
+                Privacy Policy
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .container {
@@ -366,6 +410,21 @@ Invite friends to move up the waitlist and secure your spot for the first real A
           text-align: center;
         }
         
+        .footer-links {
+          margin: 1rem 0;
+        }
+        
+        .footer-link {
+          color: #666;
+          text-decoration: underline;
+          font-size: 0.9rem;
+          transition: color 0.2s;
+        }
+        
+        .footer-link:hover {
+          color: #4f46e5;
+        }
+        
         .support-section {
           margin-bottom: 2rem;
           display: flex;
@@ -399,6 +458,84 @@ Invite friends to move up the waitlist and secure your spot for the first real A
           font-size: 0.9rem;
           color: #666;
           margin: 0;
+        }
+        
+        .cookie-banner {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          border-top: 1px solid #e5e7eb;
+          box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+          padding: 1rem;
+        }
+        
+        .cookie-content {
+          max-width: 800px;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+        
+        .cookie-text {
+          font-size: 0.9rem;
+          color: #374151;
+          margin: 0;
+          flex: 1;
+          min-width: 200px;
+        }
+        
+        .cookie-actions {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+        }
+        
+        .cookie-btn {
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 6px;
+          font-size: 0.875rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        
+        .cookie-accept {
+          background-color: #4f46e5;
+          color: white;
+        }
+        
+        .cookie-accept:hover {
+          background-color: #4338ca;
+        }
+        
+        .cookie-reject {
+          background-color: #f3f4f6;
+          color: #374151;
+          border: 1px solid #d1d5db;
+        }
+        
+        .cookie-reject:hover {
+          background-color: #e5e7eb;
+        }
+        
+        .cookie-link {
+          color: #4f46e5;
+          text-decoration: underline;
+          font-size: 0.875rem;
+          font-weight: 500;
+        }
+        
+        .cookie-link:hover {
+          color: #4338ca;
         }
         
         /* Tablet styles */
@@ -458,6 +595,16 @@ Invite friends to move up the waitlist and secure your spot for the first real A
           
           .micro-badges span {
             width: fit-content;
+          }
+          
+          .cookie-content {
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .cookie-actions {
+            justify-content: center;
+            width: 100%;
           }
         }
       `}</style>
