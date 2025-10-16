@@ -18,7 +18,18 @@ export default function Home() {
       setCookiesAccepted(cookiePreference === 'true');
     }
   }, []);
-
+useEffect(() => {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag('consent', 'update', {
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      functionality_storage: 'granted',
+      security_storage: 'granted'
+    });
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'consent_granted_auto' });
+  }
+}, []);
   // Google Ads conversion tracking function
   const gtagReportConversion = (url?: string) => {
     const callback = function () {
