@@ -18,18 +18,21 @@ export default function Home() {
       setCookiesAccepted(cookiePreference === 'true');
     }
   }, []);
-useEffect(() => {
-  if (typeof window !== "undefined" && window.gtag) {
-    window.gtag('consent', 'update', {
-      ad_storage: 'granted',
-      analytics_storage: 'granted',
-      functionality_storage: 'granted',
-      security_storage: 'granted'
-    });
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'consent_granted_auto' });
-  }
-}, []);
+  useEffect(() => {
+    if (typeof window !== "undefined" && 'gtag' in window && 'dataLayer' in window) {
+      const gtag = (window as { gtag: (...args: unknown[]) => void }).gtag;
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        functionality_storage: 'granted',
+        security_storage: 'granted'
+      });
+      
+      const windowWithDataLayer = window as { dataLayer: unknown[] };
+      windowWithDataLayer.dataLayer = windowWithDataLayer.dataLayer || [];
+      windowWithDataLayer.dataLayer.push({ event: 'consent_granted_auto' });
+    }
+  }, []);
   // Google Ads conversion tracking function
   const gtagReportConversion = (url?: string) => {
     const callback = function () {
@@ -72,9 +75,10 @@ useEffect(() => {
       setSubmitted(true);
 
       // ✅ GTM event (fires only with consent)
-      if (cookiesAccepted && typeof window !== "undefined") {
-        (window as any).dataLayer = (window as any).dataLayer || [];
-        (window as any).dataLayer.push({
+      if (cookiesAccepted && typeof window !== "undefined" && 'dataLayer' in window) {
+        const windowWithDataLayer = window as { dataLayer: unknown[] };
+        windowWithDataLayer.dataLayer = windowWithDataLayer.dataLayer || [];
+        windowWithDataLayer.dataLayer.push({
           event: "lead_submit",
           lead_source: "talklet_waitlist",
         });
@@ -585,7 +589,7 @@ Invite friends to move up the waitlist and secure your spot for the first real A
         
         .cookie-accept {
           background-color: #4f46e5;
-          color: white.
+          color: white;
         }
         
         .cookie-accept:hover {
