@@ -59,6 +59,15 @@ export default function Home() {
 
       setInviteCode(data.inviteCode);
       setSubmitted(true);
+
+      // ✅ GTM event (fires only with consent)
+      if (cookiesAccepted && typeof window !== "undefined") {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "lead_submit",
+          lead_source: "talklet_waitlist",
+        });
+      }
       
       // Track conversion only if cookies are accepted
       if (cookiesAccepted) {
@@ -565,7 +574,7 @@ Invite friends to move up the waitlist and secure your spot for the first real A
         
         .cookie-accept {
           background-color: #4f46e5;
-          color: white;
+          color: white.
         }
         
         .cookie-accept:hover {
