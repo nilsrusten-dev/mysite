@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
         email: 'contact@talklet.no',
         name: 'Talklet'
       },
-      subject: 'Welcome to Talklet 🎉',
+      subject: 'Welcome to Talklet 🎉 Something real is starting soon',
       html: `
         <!DOCTYPE html>
         <html>
@@ -75,19 +75,23 @@ export async function POST(request: NextRequest) {
         <body>
           <div class="container">
             <div class="header">
-              <h1>Welcome to Talklet!</h1>
+              <h1>You're in — welcome to the very start of Talklet 👋</h1>
             </div>
             <div class="content">
               <p>Hi,</p>
-              <p>Thanks for signing up! 🎉</p>
-              <p>We’re building <strong>Talklet</strong> – a social experiment for real conversations and real connections online.</p>
-              <p>You’re now among the very first to get updates. No spam, just the moments that matter.</p>
-              <p>Launch is only a few months away. Stay tuned – together we can push the future forward.</p>
-              <p>– The Talklet Team</p>
+              <p>You just joined something rare — a space built for real conversations, not noise.<br>
+              We're thrilled to have you here. 🎉</p>
+              <p>Talklet is all about meaningful small-group talks — honest voices, curious minds, and ideas that matter. You've joined early, which means you're helping shape what this place becomes.</p>
+              <p>When we open the first tables, you'll be one of the first invited to talk, listen, and see what happens when people meet without algorithms getting in the way.</p>
+              <p>Until then, keep an eye on your inbox — we'll only send updates that matter.</p>
+              <p>And if you know someone who'd love being part of this from the very beginning, share <a href="https://talklet.com" style="color: #7c3aed; text-decoration: none;">talklet.com</a>.<br>
+              Every person you bring in helps build the kind of conversations the internet forgot to make space for. 💬</p>
+              <p>See you soon,<br>
+              — The Talklet Team</p>
             </div>
             <div class="footer">
               <p>© 2025 Talklet. All rights reserved.</p>
-              <p>You're receiving this email because you signed up for Talklet updates.</p>
+              <p>You're receiving this email because you signed up for early access to Talklet.</p>
             </div>
           </div>
         </body>
@@ -96,17 +100,24 @@ export async function POST(request: NextRequest) {
       text: `
 Hi,
 
-Thanks for signing up! 🎉
-We’re building Talklet – a social experiment for real conversations and real connections online.
 
-You’re now among the very first to get updates. No spam, just the moments that matter.
+You just joined something rare — a space built for real conversations, not noise.
+We're thrilled to have you here. 🎉
 
-Launch is only a few months away. Stay tuned – together we can push the future forward.
+Talklet is all about meaningful small-group talks — honest voices, curious minds, and ideas that matter. You've joined early, which means you're helping shape what this place becomes.
 
-– The Talklet Team
+When we open the first tables, you'll be one of the first invited to talk, listen, and see what happens when people meet without algorithms getting in the way.
+
+Until then, keep an eye on your inbox — we'll only send updates that matter.
+
+And if you know someone who'd love being part of this from the very beginning, share talklet.com.
+Every person you bring in helps build the kind of conversations the internet forgot to make space for. 💬
+
+See you soon,
+— The Talklet Team
 
 © 2025 Talklet. All rights reserved.
-You're receiving this email because you signed up for Talklet updates.
+You're receiving this email because you signed up for early access to Talklet.
       `
     };
 
