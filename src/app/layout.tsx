@@ -2,6 +2,7 @@
 import './globals.css';
 import { ReactNode } from 'react';
 import Script from 'next/script';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 export const metadata = {
   title: 'Talklet',
@@ -9,7 +10,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-MNQFCQGN'; // legg til fallback om ønsket
+  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-MNQFCQGN';
 
   return (
     <html lang="en">
@@ -29,23 +30,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         />
 
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-V6XDC1NVB6"
-          strategy="afterInteractive"
-        />
-        <Script
-          id="gtag-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-V6XDC1NVB6');
-            `,
-          }}
-        />
+        {/* Google Analytics with Consent Management */}
+        <GoogleAnalytics />
       </head>
 
       <body>

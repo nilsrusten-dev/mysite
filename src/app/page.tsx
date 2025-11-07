@@ -18,21 +18,7 @@ export default function Home() {
       setCookiesAccepted(cookiePreference === 'true');
     }
   }, []);
-  useEffect(() => {
-    if (typeof window !== "undefined" && 'gtag' in window && 'dataLayer' in window) {
-      const gtag = (window as { gtag: (...args: unknown[]) => void }).gtag;
-      gtag('consent', 'update', {
-        ad_storage: 'granted',
-        analytics_storage: 'granted',
-        functionality_storage: 'granted',
-        security_storage: 'granted'
-      });
-      
-      const windowWithDataLayer = window as { dataLayer: unknown[] };
-      windowWithDataLayer.dataLayer = windowWithDataLayer.dataLayer || [];
-      windowWithDataLayer.dataLayer.push({ event: 'consent_granted_auto' });
-    }
-  }, []);
+  
   // Google Ads conversion tracking function
   const gtagReportConversion = (url?: string) => {
     const callback = function () {
@@ -99,12 +85,42 @@ export default function Home() {
     setShowCookieBanner(false);
     setCookiesAccepted(true);
     localStorage.setItem('cookiesAccepted', 'true');
+    
+    // Trigger custom event for consent update
+    window.dispatchEvent(new Event('cookieConsentUpdated'));
+    
+    // Update gtag consent immediately
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      const gtag = (window as { gtag: (...args: unknown[]) => void }).gtag;
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        functionality_storage: 'granted',
+        personalization_storage: 'granted',
+        security_storage: 'granted'
+      });
+    }
   };
 
   const handleRejectCookies = () => {
     setShowCookieBanner(false);
     setCookiesAccepted(false);
     localStorage.setItem('cookiesAccepted', 'false');
+    
+    // Trigger custom event for consent update
+    window.dispatchEvent(new Event('cookieConsentUpdated'));
+    
+    // Update gtag consent immediately
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      const gtag = (window as { gtag: (...args: unknown[]) => void }).gtag;
+      gtag('consent', 'update', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted'
+      });
+    }
   };
 
   return (
