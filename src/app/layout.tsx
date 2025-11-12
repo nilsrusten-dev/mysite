@@ -2,11 +2,15 @@
 import './globals.css';
 import { ReactNode } from 'react';
 import Script from 'next/script';
+import type { Metadata } from 'next';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Talklet',
   description: 'Private beta signup',
+  icons: {
+    icon: '/logo.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
