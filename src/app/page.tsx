@@ -9,6 +9,7 @@ export default function Home() {
   const [inviteCode, setInviteCode] = useState('');
   const [showCookieBanner, setShowCookieBanner] = useState(true);
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(true);
 
   // Check localStorage for cookie preference on component mount
   useEffect(() => {
@@ -17,6 +18,11 @@ export default function Home() {
       setShowCookieBanner(false);
       setCookiesAccepted(cookiePreference === 'true');
     }
+  }, []);
+  
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsPageLoading(false), 2200);
+    return () => window.clearTimeout(timer);
   }, []);
   
   // Google Ads conversion tracking function
@@ -144,7 +150,20 @@ export default function Home() {
           `
         }}
       />
-    <div className="container">
+    <div className="container" aria-busy={isPageLoading}>
+      {isPageLoading && (
+        <div className="page-loader" role="status" aria-live="polite">
+          <div className="loader-logo-wrapper">
+            <img className="loader-logo" src="/logo.png" alt="Talklet Logo" />
+          </div>
+          <div className="loader-animation">
+            <span className="loader-dot" />
+            <span className="loader-dot" />
+            <span className="loader-dot" />
+          </div>
+          <p className="loader-text">Preparing your Talklet experience…</p>
+        </div>
+      )}
       <header className="header">
         <div className="logo">
           <img width={'100px'} src={'/logo.png'} alt="Talklet Logo" />
@@ -290,6 +309,94 @@ Invite friends to move up the waitlist and secure your spot for the first real A
           padding: 1rem;
           background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        .page-loader {
+          position: fixed;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 1.25rem;
+          background: rgba(245, 247, 250, 0.92);
+          backdrop-filter: blur(6px);
+          z-index: 999;
+          color: #1f2937;
+          text-align: center;
+        }
+        
+        .loader-logo-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .loader-logo {
+          width: 96px;
+          height: auto;
+          filter: drop-shadow(0 6px 16px rgba(79, 70, 229, 0.25));
+          animation: loader-pulse 1.8s ease-in-out infinite;
+        }
+        
+        .loader-animation {
+          display: flex;
+          gap: 0.75rem;
+        }
+        
+        .loader-dot {
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: #4f46e5;
+          opacity: 0.8;
+          animation: loader-bounce 1s infinite ease-in-out;
+        }
+        
+        .loader-dot:nth-child(2) {
+          animation-delay: 0.15s;
+        }
+        
+        .loader-dot:nth-child(3) {
+          animation-delay: 0.3s;
+        }
+        
+        .loader-text {
+          font-size: 0.95rem;
+          font-weight: 500;
+          color: #374151;
+          letter-spacing: 0.01em;
+        }
+        
+        @keyframes loader-bounce {
+          0%, 80%, 100% {
+            transform: scale(0.6);
+            opacity: 0.5;
+          }
+          40% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        @keyframes loader-pulse {
+          0%, 100% {
+            transform: scale(0.95);
+            opacity: 0.85;
+          }
+          50% {
+            transform: scale(1.05);
+            opacity: 1;
+          }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+          .loader-dot {
+            animation: none;
+          }
+          .loader-logo {
+            animation: none;
+          }
         }
         
         .header {
